@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interactive Photo Gallery</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fafafa;
+      text-align: center;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .gallery img {
+      width: 250px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 10px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .gallery img:hover,
+    .gallery img:focus {
+      transform: scale(1.05);
+      box-shadow: 0 0 10px #555;
+    }
+
+    .gallery img:focus {
+      outline: 3px solid #0078d7;
+    }
+  </style>
+</head>
+
+<body onload="pageLoaded()">
+  <h1>Interactive Photo Gallery</h1>
+
+  <div class="gallery" role="group" aria-label="Photo gallery">
+    <img src="images/1.jpeg" alt="Beautiful mountain landscape">
+    <img src="images/2.jpeg" alt="Serene beach at sunset">
+    <img src="images/3.jpeg" alt="City skyline at night">
+    <img src="images/4.jpeg" alt="Forest trail in autumn">
+    <img src="images/5.jpeg" alt="Snow-covered cabin in the woods">
+    <img src="images/6.jpeg" alt="Colorful hot air balloons in the sky">
+  </div>
+
+  <script>
+    function pageLoaded() {
+      console.log("✅ Page fully loaded and script running");
+
+      const images = document.querySelectorAll('.gallery img');
+
+      for (let i = 0; i < images.length; i++) {
+        images[i].setAttribute('tabindex', i + 1);
+        console.log("Added tabindex to image " + (i + 1));
+
+        images[i].addEventListener('mouseover', function() {
+          console.log("Mouse entered image " + (i + 1));
+          this.style.transform = "scale(1.1)";
+          this.style.boxShadow = "0 0 12px #222";
+        });
+
+        images[i].addEventListener('mouseleave', function() {
+          console.log("Mouse left image " + (i + 1));
+          this.style.transform = "scale(1)";
+          this.style.boxShadow = "none";
+        });
+
+        images[i].addEventListener('focus', function() {
+          console.log("Focused on image " + (i + 1));
+          this.style.transform = "scale(1.1)";
+          this.style.boxShadow = "0 0 12px #444";
+        });
+
+        images[i].addEventListener('blur', function() {
+          console.log("Focus removed from image " + (i + 1));
+          this.style.transform = "scale(1)";
+          this.style.boxShadow = "none";
+        });
+      }
+    }
+  </script>
+</body>
+</html>
